@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Inicio </title>
+  <style>
+    /* Estilos para los headers */
+    .header {
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    
+    /* Estilos para los enlaces del menú */
+    .header a {
+      padding: 8px 16px;
+      text-decoration: none;
+      color: black;
+    }
+    
+    /* Estilos para los enlaces del menú cuando se pasa el cursor por encima */
+    .header a:hover {
+      background-color: #ddd;
+    }
+    
+    /* Estilos para los menús desplegables */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    /* Estilos para los contenidos de los menús desplegables */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      z-index: 1;
+    }
+    
+    /* Estilos para los enlaces de los contenidos de los menús desplegables */
+    .dropdown-content a {
+      padding: 8px 16px;
+      text-decoration: none;
+      display: block;
+      color: black;
+    }
+    
+    /* Estilos para los enlaces de los contenidos de los menús desplegables cuando se pasa el cursor por encima */
+    .dropdown-content a:hover {
+      background-color: #f2f2f2;
+    }
+    
+    /* Mostrar los contenidos de los menús desplegables cuando se pasa el cursor por encima del menú */
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+     
+    <h1>Inicio</h1>
+    <!--dropdown de mujeres*/ -->
+    <div class="dropdown">
+      <a href="#">Mujeres</a>
+      <div class="dropdown-content">
+        <a href="#">Blusas</a>
+        <a href="#">Vestidos</a>
+        <a href="#">Pantalones</a>
+      </div>
+    </div>
+
+     <!--dropdown de hombres*/ -->
+    <div class="dropdown">
+      <a href="#">Hombres</a>
+      <div class="dropdown-content">
+        <a href="#">Camisetas</a>
+        <a href="#">Camisas</a>
+        <a href="#">Pantalones</a>
+      </div>
+    </div>
+    <a href="/Login">Iniciar Sesion</a>
+  </div>
+</body>
+</html>
