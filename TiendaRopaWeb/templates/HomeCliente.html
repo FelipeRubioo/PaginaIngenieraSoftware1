@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      width: 200px;
+      height: 350px;
+      max-width: 200px;
+      margin-right: 20px;
+      /* Add margin to create space between cards */
+      /* Adjust the max-width as desired */
+
+    }
+
+    .card:last-child {
+      margin-right: 0;
+      /* Remove margin from the last card to avoid extra space */
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      padding: 2px 16px;
+    }
+
+    .card-container {
+      display: flex;
+      /* Use flexbox to create a flexible container */
+    }
+
+    .card {
+      flex: 1;
+      /* Allow cards to grow and shrink equally within the container */
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Maintain aspect ratio and crop if necessary */
+    }
+
+    .card-group {
+      display: flex;
+      margin-bottom: 100px;
+      /* Add margin to create space between card groups */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- se tiene un card group que contiene dos group containers (uno para mujer y otro para hombre)
+        con las propiedades CSS se hacen espacios entre las cards y los cards containers -->
+  
+  <!-- Categorias para mujer-->
+  <div class="card-group">
+    <div class="card-container">
+      <div class="card">
+        <img src="/static/camisetaMujer1.png" alt="camisetaMujer1" style="width:100%">
+        <div class="container">
+          <h4><b>Camisetas para mujer</b></h4>
+          <button type="button" class="btn btn-danger"  onclick="redirect('camisetasMujer',6)">Ver más</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="/static/blusaMujer1.png" alt="blusaMujer1" style="width:100%">
+        <div class="container">
+          <h4><b>Blusas para mujer</b></h4>
+          <button type="button" class="btn btn-danger" onclick="redirect('blusasMujer',5)">Ver más</button>
+        </div>
+      </div>
+    
+      <div class="card">
+        <img src="/static/faldaMujer1.png" alt="faldaMujer1" style="width:100%">
+        <div class="container">
+          <h4><b>Faldas para mujer</b></h4>
+          <button type="button" class="btn btn-danger" onclick="redirect('faldasMujer',8)">Ver más</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="/static/pantalonMujer1.png" alt="pantalonMujer1" style="width:100%">
+        <div class="container">
+          <h4><b>Pantalones para mujer</b></h4>
+          <button type="button" class="btn btn-danger" onclick="redirect('pantalonesMujer',7)">Ver más</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Categorias para hombre -->
+    <div class="card-container">
+      <div class="card">
+        <img src="/static/camisetaHombre1.png" alt="camisetaHombre1" style="width:100%">
+        <div class="container">
+          <h4><b>Camisetas para hombre</b></h4>
+          <button type="button" class="btn btn-danger"  onclick="redirect('camisetasHombre',2)">Ver más</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="/static/camisaHombre1.png" alt="camisaHombre1" style="width:100%">
+        <div class="container">
+          <h4><b>Camisas para hombre</b></h4>
+          <button type="button" class="btn btn-danger" onclick="redirect('camisasHombre',1)">Ver más</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="/static/shortHombre1.png" alt="shortHombre1" style="width:100%">
+        <div class="container">
+          <h4><b>Shorts para hombre</b></h4>
+          <button type="button" class="btn btn-danger" onclick="redirect('shortsHombre',3)">Ver más</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="/static/pantalonHombre1.png" alt="pantalonHombre1" style="width:100%">
+        <div class="container">
+          <h4><b>Pantalones para hombre</b></h4>
+          <button type="button" class="btn btn-danger" onclick="redirect('pantalonesHombre',4)">Ver más</button>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</body>
+<form action='' method='POST'>
+  <!-- <input type="hidden" name="propietario" id="categoria" value=""> -->
+  <input type="hidden" name="categoria" id="categoria"value="">
+  <input type="hidden" name="idCategoria" id="idCategoria"value="">
+  <input type="submit" style="display: none;" name="submit" value="subir" id="botSubmit">
+</form>
+
+
+<script>
+  function redirect(categoria,idCategoria) {
+    document.getElementById("categoria").value = categoria
+    document.getElementById("idCategoria").value = idCategoria
+    document.getElementById('botSubmit').click();
+  }
+</script>
+
+</html>

@@ -1,0 +1,67 @@
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>pagina de carrito</h1>
+    <table class="table table-info table-striped" id="tablaCarrito">
+        <thead>
+            <tr>
+                <th scope="col">Prenda</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Talla</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prenda in prendasCarrito %}
+                <tr>
+                    <td>{{ prenda[0][0] }}</td>
+                    <td>{{ prenda[0][1] }}</td>
+                    <td>{{ prenda[1] }}</td>
+                    <td>{{ prenda[0][2] }}</td>
+                    <td>{{ prenda[0][1] * prenda[1] }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4" style="text-align: right;"><strong>Total:</strong></td>
+                <td id="totalColumn"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="post">
+
+        <button type="submit">Finalizar compra</button> 
+    </form>
+
+    <script>
+        // Calculate and display the sum of the "Total" column
+        window.addEventListener("DOMContentLoaded", function() {
+            var totalColumn = document.getElementById("totalColumn");
+            var total = 0;
+            var totalCells = document.querySelectorAll("#tablaCarrito tbody td:nth-child(5)");
+            for (var i = 0; i < totalCells.length; i++) {
+                total += parseInt(totalCells[i].textContent);
+            }
+            totalColumn.textContent = total;
+        });
+    </script>
+</body>
+</html>

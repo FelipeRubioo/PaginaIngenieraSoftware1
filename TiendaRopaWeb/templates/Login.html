@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    /* Estilos para el contenedor del formulario */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    /* Estilos para el formulario de inicio de sesión */
+    .login-form {
+      width: 300px;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+    }
+    
+    /* Estilos para los campos del formulario */
+    .login-form input {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    
+    /* Estilos para el botón de inicio de sesión */
+    .login-form button {
+      width: 100%;
+      padding: 8px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    
+    /* Estilos para el botón de inicio de sesión cuando se pasa el cursor por encima */
+    .login-form button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <form class="login-form" method="POST">
+      <h2>Login</h2>
+      <input type="text" name="correo" placeholder="Correo">
+      <input type="password" name="contraseña" placeholder="Contraseña">
+      <button type="submit">Iniciar sesión</button>
+      <p><a href="/Registro">Registrarse</a></p>
+    </form>
+  </div>
+</body>
+</html>
