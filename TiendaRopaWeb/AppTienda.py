@@ -20,8 +20,7 @@ app.secret_key = "asdfvfñfes7u2nairfn"
 #Inicio
 @app.route("/", methods=['GET','POST'])
 def index():
-        return render_template('Inicio.html')
-
+        return redirect("/Login")
 
 #Registro
 @app.route("/Registro", methods=["GET","POST"])
@@ -84,7 +83,16 @@ def Login():
             print("no se encontro el usuario")
             session['logged'] = False
             return redirect("/Error")
-        
+
+ #Login 
+@app.route("/Logout", methods= ["GET","POST"])
+def Logout():
+    session['logged'] = False
+    cursor.execute("Delete from Carrito where idCliente = ?",(session['idCliente'],))
+    connection.commit()
+    if request.method == 'GET':
+       return redirect("/Login")
+    
    
 
 #HomeCliente 
@@ -112,7 +120,9 @@ def Categoria(categoria,idCategoria):
             if session['logged'] == True:
                 cursor.execute("SELECT * FROM Prenda where idCategoria= " + idCategoria)
                 prendas = cursor.fetchall()
-                return render_template("Categoria.html",prendas = prendas)
+                cursor.execute("SELECT nombre FROM Categoria WHERE idCategoria= ? ", (idCategoria,))
+                categoria = cursor.fetchone()
+                return render_template("Categoria.html",prendas = prendas, categoria = categoria)
             else:
                 return redirect("/Error")
     elif metodo == 'POST':
