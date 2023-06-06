@@ -1,6 +1,9 @@
 <html>
 
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     /* Estilos generales */
@@ -59,7 +62,8 @@
       background-color: #5a2d0c;
     }
 
-    html,body {
+    html,
+    body {
       height: 100%;
     }
 
@@ -95,9 +99,11 @@
       justify-content: center;
       margin-top: 40px;
     }
+
     .input-container {
       margin-top: 10px;
     }
+
     .card {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       transition: 0.3s;
@@ -128,6 +134,7 @@
     .card button {
       margin-top: auto;
     }
+
     footer {
       background-color: #333;
       color: #fff;
@@ -158,28 +165,78 @@
           <h4><b>Talla: {{prenda[4]}}</b></h4>
           <!--input -->
           <!--<button type="button" class="btn btn-danger">Agregar a carrito</button> -->
-          <form method="post">
+          <form method="post" id="formAgregar{{ loop.index }}">
             <div class="input-container">
               <label for="cantidad">Cantidad (MAX 5):</label>
               <input type="number" name="cantidad" id="cantidad" min="1" max="5">
             </div>
             <input type="hidden" name="idPrenda" id="precio" value="{{prenda[0]}}">
-            <input type="submit" style="display: none;">
             <div class="input-container">
-              <button class="agregar-carrito-button">Agregar a Carrito</button>
+              <button type="submit" class="agregar-carrito-button">Agregar a Carrito</button>
             </div>
-            
+
           </form>
         </div>
       </div>
       {% endfor %}
     </div>
   </div>
+  <!-- Bootstrap modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Éxito</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Se agregó el artículo al carrito.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <script>
+    // Handle form submission using AJAX
+    $(document).ready(function () {
+      $('form[id^="formAgregar"]').submit(function (event) {
+        event.preventDefault(); // Prevent default form submission
 
- <footer>
+        var formId = $(this).attr('id');
+        // Collect form data
+        var formData = $(this).serialize();
+        // Send AJAX request
+        $.ajax({
+          type: 'POST',
+          url: '/AgregarCarrito',
+          data: formData,
+          success: function (response) {
+            // Handle success response
+            //popup
+            $('#successModal').modal('show');
+            //borra el input de cantidad para poder pone uno nuevo 
+            //document.getElementById("cantidad").value = '';
+            $('#' + formId + ' input[name="cantidad"]').val('');
+          },
+          error: function (xhr, status, error) {
+            // Handle error response
+            console.error(error);
+          }
+        });
+      });
+    });
+  </script>
+
+
+  <footer>
     <p>© 2023 Tienda de Ropa. Todos los derechos reservados.</p>
   </footer>
-  <!--<a href="/Carrito" class="button">Ir a carrito</a> -->
+  
 </body>
 
 </html>

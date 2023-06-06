@@ -113,7 +113,7 @@ def HomeCliente():
             
 
 #Categoria
-@app.route("/Categoria/<categoria>/<idCategoria>", methods= ["GET","POST"])
+@app.route("/Categoria/<categoria>/<idCategoria>", methods= ["GET"])
 def Categoria(categoria,idCategoria):
     metodo = request.method
     if metodo == 'GET':
@@ -122,19 +122,25 @@ def Categoria(categoria,idCategoria):
                 prendas = cursor.fetchall()
                 cursor.execute("SELECT nombre FROM Categoria WHERE idCategoria= ? ", (idCategoria,))
                 categoria = cursor.fetchone()
-                return render_template("Categoria.html",prendas = prendas, categoria = categoria)
+                return render_template("Categoria.html",prendas = prendas, categoria = categoria, idCategoria = idCategoria)
             else:
                 return redirect("/Error")
-    elif metodo == 'POST':
-         #se agrega id de articulo y cantidad del mismo al carrito
+
+
+#AgregarCarrito
+@app.route("/AgregarCarrito", methods=["POST"])  
+def AgregarCarrito():
+     if request.method == 'POST':
          idCliente = session['idCliente']
          idPrenda = request.form['idPrenda']
          cantidad = request.form['cantidad']
          cursor.execute("INSERT INTO Carrito (idCliente, idPrenda, cantidad) VALUES (?, ?, ?);", (idCliente, idPrenda, cantidad))
          connection.commit()
-         #Vuelve a cargar la pagina
-         return redirect(request.referrer)
          
+         return "se agrego la prenda correctamente" 
+ 
+     
+
 #Carrito
 @app.route("/Carrito", methods= ["GET","POST"])
 def Carrito():
@@ -166,7 +172,7 @@ def Carrito():
         print(arreglo)
         
     
-#Pantalla de erorr 
+#Pantalla de error 
 @app.route("/Error", methods= ["GET","POST"])
 def Error():
     return render_template('Error.html')
