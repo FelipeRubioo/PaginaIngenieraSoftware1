@@ -147,7 +147,7 @@ def Carrito():
     metodo = request.method
     if metodo == 'GET':
             if session['logged'] == True:
-                arreglo = []
+                prendas = []
 
                 #Obtiene los articulos del cliente que tenga en el carrito 
                 idCliente = session['idCliente']
@@ -158,20 +158,30 @@ def Carrito():
                     idPrenda = compra[1]
                     cantidad = compra[2]
                     cursor.execute("SELECT nombre, precio, talla FROM Prenda WHERE idPrenda = ?;", (idPrenda,))
-                    datos = cursor.fetchall()
-                    datos.append(cantidad)
-                    arreglo.append(datos)
-                
-                return render_template("Carrito.html",prendasCarrito = arreglo)
+                    prenda = cursor.fetchall()
+                    
+                    prenda.append(cantidad)
+                    
+                    prendas.append(prenda)
+                    
+                return render_template("Carrito.html",prendasCarrito = prendas)
                 
             else:
                 return redirect("/Error")     
-    elif metodo == 'POST':
-        print("compra hecha:")
-        arreglo = session.get('arreglo')
-        print(arreglo)
-        
     
+@app.route("/BorrarPrenda", methods= ["GET","POST"])
+def BorrarPrenda():
+    if request.method == "POST":
+        idCliente = session['idCliente']
+        print("se va a eliminar la prenda de la BD")
+        nombrePrenda = request.form.get('nombrePrenda')
+        print("nombrePrenda:")
+        print(nombrePrenda)
+        
+        cursor.execute("DELETE FROM Carrito WHERE idPrenda IN ( SELECT idPrenda FROM Prenda WHERE nombre = ? ) AND idCliente = ?;", (nombrePrenda,idCliente))
+        connection.commit()
+        return "se elimino la prenda correctamente" 
+
 #Pantalla de error 
 @app.route("/Error", methods= ["GET","POST"])
 def Error():

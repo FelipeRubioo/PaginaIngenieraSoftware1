@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         header {
             background-color: #333;
@@ -34,6 +35,12 @@
             width: 90px;
             height: 30px;
             line-height: 30px;
+        }
+
+        .eliminar-button {
+            background-color: #c51350;
+            color: white;
+
         }
 
         .carrito-button:hover,
@@ -144,6 +151,7 @@
                     <th scope="col">Cantidad</th>
                     <th scope="col">Talla</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -154,6 +162,7 @@
                     <td>{{ prenda[1] }}</td>
                     <td>{{ prenda[0][2] }}</td>
                     <td>$ {{ prenda[0][1] * prenda[1] }}</td>
+                    <td><button class="eliminar-button" onclick="eliminarPrenda(this)">Eliminar</button></td>
                 </tr>
                 {% endfor %}
                 <tr>
@@ -170,11 +179,14 @@
 
     <footer>
         <p>© 2023 Tienda de Ropa. Todos los derechos reservados.</p>
-      </footer>
+    </footer>
 
 
     <script>
         // Calculate and display the sum of the "Total" column
+        function actualizarTotal(){
+            
+        }
         window.addEventListener("DOMContentLoaded", function () {
             var totalColumn = document.getElementById("totalColumn");
             var total = 0;
@@ -184,6 +196,29 @@
             }
             totalColumn.textContent = "$ " + total;
         });
+
+        function eliminarPrenda(button) {
+            var row = button.parentNode.parentNode;
+            var nombrePrenda = row.cells[0].textContent;
+            //borra la prenda de la pagina
+            row.parentNode.removeChild(row);
+
+            
+            $.ajax({
+                type: 'POST',
+                url: '/BorrarPrenda',
+                data: {"nombrePrenda": nombrePrenda},
+                success: function (response) {
+
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error(error);
+                }
+            });
+
+
+        }
     </script>
 </body>
 
