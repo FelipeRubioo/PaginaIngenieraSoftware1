@@ -183,11 +183,9 @@
 
 
     <script>
-        // Calculate and display the sum of the "Total" column
-        function actualizarTotal(){
-            
-        }
-        window.addEventListener("DOMContentLoaded", function () {
+
+        // calcula y muestra la suma de la columna "Total"
+        function actualizarTotal() {
             var totalColumn = document.getElementById("totalColumn");
             var total = 0;
             var totalCells = document.querySelectorAll("#tablaCarrito tbody td:nth-child(5)");
@@ -195,6 +193,12 @@
                 total += parseInt(totalCells[i].textContent.replace("$ ", ""));
             }
             totalColumn.textContent = "$ " + total;
+        }
+
+        //cuando carga la pagina
+        window.addEventListener("DOMContentLoaded", function () {
+
+            actualizarTotal();
         });
 
         function eliminarPrenda(button) {
@@ -203,11 +207,11 @@
             //borra la prenda de la pagina
             row.parentNode.removeChild(row);
 
-            
+
             $.ajax({
                 type: 'POST',
                 url: '/BorrarPrenda',
-                data: {"nombrePrenda": nombrePrenda},
+                data: { "nombrePrenda": nombrePrenda },
                 success: function (response) {
 
                 },
@@ -217,7 +221,7 @@
                 }
             });
 
-
+            actualizarTotal();
         }
     </script>
 </body>

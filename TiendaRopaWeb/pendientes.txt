@@ -1,6 +1,7 @@
 
 modulos:
 -realizar compra (cliente)
+-resumen de compra y generar pdf de compra (como factura)(cliente)
 -ver historial de compra (cliente)
 -agregar/eliminar categoria (Empleado)
 -agregar/eliminar producto (Empleado)
@@ -14,5 +15,6 @@ fixes:
 -arreglar css de Categoria
 -separar todo en clases 
 -generar stylesheets de css
--el valor "total" del carrito se debe actualizar cuando se elimine una prenda
+-el valor "total" del carrito se debe actualizar cuando se elimine una prenda***
 -el carrito no se borre cuando se inicia sesion
+-corregir todos los querys de sql para que sean parametrizados

@@ -70,7 +70,6 @@ def Login():
 
         #el query dio un resultado, el usario existe
         if filas == 1:
-            print("se encontro el usuario")
             session['logged'] = True
             cursor.execute("SELECT idCliente FROM Clientes where correo = '"+ correo +"'")
             resultado = cursor.fetchall()
@@ -173,10 +172,8 @@ def Carrito():
 def BorrarPrenda():
     if request.method == "POST":
         idCliente = session['idCliente']
-        print("se va a eliminar la prenda de la BD")
+        
         nombrePrenda = request.form.get('nombrePrenda')
-        print("nombrePrenda:")
-        print(nombrePrenda)
         
         cursor.execute("DELETE FROM Carrito WHERE idPrenda IN ( SELECT idPrenda FROM Prenda WHERE nombre = ? ) AND idCliente = ?;", (nombrePrenda,idCliente))
         connection.commit()
